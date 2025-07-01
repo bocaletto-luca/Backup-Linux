@@ -1,4 +1,5 @@
-# Backup Linux | Python | Opensource
+# PyBackup
+### Auto Backup for Linux | Python | Opensource
 #### Author: Bocaletto Luca
 
 Interactive, single-file incremental backup tool with encryption, checksums, retention and restore—all in your terminal.
