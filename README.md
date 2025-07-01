@@ -1,6 +1,5 @@
 # Backup Linux | main.py
-#### Author: 
-Bocaletto Luca
+#### Author: Bocaletto Luca
 
 Interactive, single-file incremental backup tool with encryption, checksums, retention and restore—all in your terminal.
 
