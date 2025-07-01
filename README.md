@@ -3,6 +3,8 @@
 
 Interactive, single-file incremental backup tool with encryption, checksums, retention and restore—all in your terminal.
 
+backup_main.py is an interactive, single-file CLI backup utility for Linux. It captures incremental snapshots, compresses changed files into tar.gz (or pigz), encrypts them with GPG, verifies integrity via SHA256, and auto-rotates old backups. A menu-driven interface simplifies configuration and restore.
+
 #### Language: English, Italian.
 
 ---
