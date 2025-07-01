@@ -7,6 +7,8 @@ backup_main.py is an interactive, single-file CLI backup utility for Linux. It c
 
 #### Language: English, Italian.
 
+[![Source Code](https://img.shields.io/badge/Source%20Code-GitHub-blue?logo=github)](https://github.com/bocaletto-luca/Backup-Linux)
+
 ---
 
 ## Table of Contents
