@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>backup_main.py – Interactive Incremental Backup Tool</title>
-  <meta name="description" content="backup_main.py is an all-in-one, interactive CLI utility for Linux. It provides incremental snapshots, GPG encryption, SHA256 checksums, automatic retention, interactive restore, exclude patterns, console & file logging, and optional email notifications.">
-  <meta name="keywords" content="backup, incremental backup, CLI, GPG encryption, SHA256, tar.gz, pigz, retention, Linux backup, Python utility">
+  <title>PyBackup – Interactive Incremental Backup Tool | Bocaletto Luca</title>
+  <meta name="description" content="PyBackup is an all-in-one, interactive CLI utility for Linux. It provides incremental snapshots, GPG encryption, SHA256 checksums, automatic retention, interactive restore, exclude patterns, console & file logging, and optional email notifications.">
+  <meta name="keywords" content="incremental backup, CLI, GPG encryption, SHA256, tar.gz, pigz, retention, Linux backup, Python utility, PyBackup">
   <meta name="author" content="Luca Bocaletto">
   <style>
     body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; max-width: 900px; margin: auto; }
@@ -16,16 +16,20 @@
     code { font-family: monospace; background: #f4f4f4; padding: 2px 4px; }
     a { color: #0066cc; text-decoration: none; }
     a:hover { text-decoration: underline; }
-    hr { border: none; border-top: 1px solid #ddd; margin: 40px 0; }
+    .btn { display: inline-block; margin: 10px 0; padding: 10px 15px; background: #24292e; color: #fff; border-radius: 5px; text-decoration: none; }
+    footer { margin-top: 40px; font-size: 0.9em; border-top: 1px solid #ddd; padding-top: 10px; }
   </style>
 </head>
 <body>
 
-  <h1>backup_main.py</h1>
+  <h1>PyBackup</h1>
+  <h3>for Linux By Bocaletto Luca</h3>
   <p>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
     <a href="#"><img src="https://img.shields.io/badge/version-1.0.0-green.svg" alt="Version 1.0.0"></a>
   </p>
+
+  <a class="btn" href="https://github.com/bocaletto-luca/Backup-Linux" target="_blank">Source Code</a>
 
   <nav>
     <h2>Table of Contents</h2>
@@ -35,12 +39,7 @@
       <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#installation">Installation</a></li>
       <li><a href="#configuration">Configuration</a></li>
-      <li><a href="#usage">Usage</a>
-        <ul>
-          <li><a href="#run-backup">Run Backup</a></li>
-          <li><a href="#restore-archive">Restore Archive</a></li>
-        </ul>
-      </li>
+      <li><a href="#usage">Usage</a></li>
       <li><a href="#exclude-patterns">Exclude Patterns</a></li>
       <li><a href="#logging">Logging</a></li>
       <li><a href="#email-notifications">Email Notifications</a></li>
@@ -54,9 +53,7 @@
   <hr>
 
   <h2 id="overview">Overview</h2>
-  <p>
-    <code>backup_main.py</code> is an all-in-one, interactive CLI utility for Linux (Debian/Ubuntu). It provides:
-  </p>
+  <p><strong>PyBackup</strong> is an all-in-one, interactive CLI utility for Linux (Debian/Ubuntu). It provides:</p>
   <ul>
     <li>Incremental backups based on file modification times</li>
     <li>Compressed archives (<code>.tar.gz</code>) or parallel compression with <code>pigz</code></li>
@@ -75,16 +72,16 @@
   <h2 id="features">Features</h2>
   <ul>
     <li><strong>Interactive Menu</strong>: Configure, run backup and restore without memorizing flags</li>
-    <li><strong>Persistent Config</strong>: Your settings saved in <code>~/.config/backup_main/config.json</code></li>
-    <li><strong>Incremental Snapshots</strong>: Only changed or new files are archived</li>
-    <li><strong>Compression Options</strong>: Native <code>tar.gz</code> or faster <code>pigz</code> if installed</li>
+    <li><strong>Persistent Config</strong>: Settings saved in <code>~/.config/backup_main/config.json</code></li>
+    <li><strong>Incremental Snapshots</strong>: Only new or changed files are archived</li>
+    <li><strong>Compression Options</strong>: Native <code>tar.gz</code> or <code>pigz</code> if installed</li>
     <li><strong>GPG Encryption</strong>: Secure archives with your GPG key</li>
     <li><strong>Checksums</strong>: SHA256 record saved alongside each <code>.gpg</code> file</li>
     <li><strong>Retention</strong>: Automatically delete backups older than configured days</li>
     <li><strong>Restore</strong>: List and decrypt any backup to a target folder</li>
     <li><strong>Exclude Patterns</strong>: Filter out files or directories by glob pattern</li>
-    <li><strong><code>.backupignore</code></strong>: Place patterns in source dir for project-specific ignores</li>
-    <li><strong>Logging</strong>: Combines console output with daily rotating log files</li>
+    <li><strong><code>.backupignore</code></strong>: Project-specific ignore rules</li>
+    <li><strong>Logging</strong>: Console output plus daily rotating log files</li>
     <li><strong>Email Alerts</strong>: SMTP notifications for success or failure</li>
   </ul>
 
@@ -96,14 +93,14 @@
     <li>GPG (<code>gnupg</code> command-line tool)</li>
     <li>(Optional) <code>pigz</code> for parallel compression</li>
     <li>An existing GPG key pair (public key on the machine for encryption)</li>
-    <li>SMTP server credentials if you want email notifications</li>
+    <li>SMTP server credentials for email notifications</li>
   </ul>
 
   <hr>
 
   <h2 id="installation">Installation</h2>
-  <pre><code>git clone https://github.com/bocaletto-luca/backup_main.py.git
-cd backup_main.py
+  <pre><code>git clone https://github.com/bocaletto-luca/Backup-Linux.git
+cd Backup-Linux
 pip install python-gnupg
 chmod +x backup_main.py</code></pre>
 
@@ -111,113 +108,85 @@ chmod +x backup_main.py</code></pre>
 
   <h2 id="configuration">Configuration</h2>
   <ol>
-    <li>Launch the script:
-      <pre><code>./backup_main.py</code></pre>
-    </li>
+    <li>Launch the script:<br><code>./backup_main.py</code></li>
     <li>Select <strong>1) Configure settings</strong></li>
     <li>Enter:
       <ul>
         <li><strong>Source directory</strong> (e.g. <code>/home/user/projects</code>)</li>
         <li><strong>Backup directory</strong> (e.g. <code>~/backups</code>)</li>
-        <li><strong>GPG key ID</strong> (the public key for encryption)</li>
-        <li><strong>Retention days</strong> (how long to keep <code>.gpg</code> backups)</li>
-        <li><strong>Exclude patterns</strong> (comma-separated globs)</li>
+        <li><strong>GPG key ID</strong> (public key for encryption)</li>
+        <li><strong>Retention days</strong> (how long to keep backups)</li>
+        <li><strong>Exclude patterns</strong> (comma-separated)</li>
         <li><strong>Log level</strong> (<code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>)</li>
-        <li><strong>SMTP settings</strong> (server, port, username, password, from/to)</li>
+        <li><strong>SMTP settings</strong> for email alerts</li>
       </ul>
     </li>
-    <li>The tool saves all settings to <code>~/.config/backup_main/config.json</code></li>
+    <li>Configuration saved to <code>~/.config/backup_main/config.json</code></li>
   </ol>
 
   <hr>
 
   <h2 id="usage">Usage</h2>
-
-  <h3 id="run-backup">Run Backup</h3>
-  <p>Select <strong>2) Run backup</strong> from the menu. The script will:</p>
+  <h3>Run Backup</h3>
   <ol>
-    <li>Load your config and verify paths / GPG key</li>
-    <li>Scan source dir and load previous snapshot</li>
-    <li>Archive only changed files to <code>bkp_&lt;timestamp&gt;.tar.gz</code></li>
-    <li>Encrypt archive to <code>bkp_&lt;timestamp&gt;.tar.gz.gpg</code></li>
-    <li>Generate <code>bkp_&lt;timestamp&gt;.tar.gz.gpg.sha256</code></li>
-    <li>Delete old backups beyond retention</li>
-    <li>Log actions and send optional email</li>
+    <li>Select <strong>2) Run backup</strong></li>
+    <li>Script will perform incremental snapshot, compress, encrypt, checksum, rotate, log, email</li>
   </ol>
-
-  <h3 id="restore-archive">Restore Archive</h3>
-  <p>Select <strong>3) Restore archive</strong> from the menu. You will:</p>
+  <h3>Restore Archive</h3>
   <ol>
-    <li>See a numbered list of encrypted backups</li>
-    <li>Select one and specify a restore folder</li>
-    <li>Decrypt to a temporary <code>.tar.gz</code></li>
-    <li>Extract contents into your target directory</li>
-    <li>Clean up temporary files</li>
+    <li>Select <strong>3) Restore archive</strong></li>
+    <li>Choose from list, specify target folder, decrypt and extract</li>
   </ol>
 
   <hr>
 
   <h2 id="exclude-patterns">Exclude Patterns</h2>
-  <p>Filter out files or directories by glob pattern. Examples:</p>
-  <ul>
-    <li><code>*.tmp</code></li>
-    <li><code>cache/*</code></li>
-    <li><code>**/*.log</code></li>
-  </ul>
-  <p>Enter patterns in the configuration step (comma-separated). Use a <code>.backupignore</code> file
-     in your source directory to version-control ignore rules.</p>
+  <p>Use glob patterns to ignore files/folders. Place a <code>.backupignore</code> file in source directory:</p>
+  <pre><code>*.tmp
+cache/</code></pre>
 
   <hr>
 
   <h2 id="logging">Logging</h2>
   <ul>
-    <li><strong>Console</strong>: real-time INFO / WARN / DEBUG messages</li>
-    <li><strong>File</strong>: <code>backup.log</code> in your backup directory, rotated daily</li>
-    <li><strong>Retention</strong>: log files retained based on your retention setting</li>
+    <li><strong>Console</strong>: INFO/WARN/DEBUG</li>
+    <li><strong>File</strong>: <code>backup.log</code>, rotated daily</li>
   </ul>
 
   <hr>
 
   <h2 id="email-notifications">Email Notifications</h2>
-  <p>On each backup run (success or failure), you can send an email alert:</p>
-  <ul>
-    <li>SMTP server and credentials in config</li>
-    <li>From and To addresses</li>
-    <li>Subject indicates <code>[OK]</code> or <code>[FAIL]</code> plus timestamp</li>
-  </ul>
+  <p>SMTP credentials in config enable alerts on success/failure.</p>
 
   <hr>
 
   <h2 id="backupignore-support">.backupignore Support</h2>
-  <p>Create a file named <code>.backupignore</code> in your source directory:</p>
-  <pre><code># ignore temp files
-*.tmp
-# ignore cache folder
-cache/</code></pre>
-  <p>These patterns are merged with your global exclude list.</p>
+  <p>Define project-specific ignores in <code>.backupignore</code>.</p>
 
   <hr>
 
   <h2 id="contributing">Contributing</h2>
-  <p>Contributions are welcome! Please:</p>
-  <ol>
-    <li>Fork the repository</li>
-    <li>Create a feature branch</li>
-    <li>Commit and push your changes</li>
-    <li>Open a Pull Request</li>
-  </ol>
-  <p>For major changes, open an issue first to discuss.</p>
+  <p>Fork, branch, PR. Discuss major changes via issue first.</p>
 
   <hr>
 
   <h2 id="license">License</h2>
-  <p>This project is licensed under the <a href="LICENSE">MIT License</a>.</p>
+  <p>MIT License – see <a href="LICENSE">LICENSE</a></p>
 
   <hr>
 
   <h2 id="author">Author</h2>
-  <p><strong>Luca Bocaletto</strong> (<a href="https://github.com/bocaletto-luca">bocaletto-luca</a>)<br>
-     Interactive backup enthusiast, Python developer.</p>
+  <p>Luca Bocaletto – <a href="https://bocaletto-luca.github.io">Website</a> | 
+     <a href="https://github.com/bocaletto-luca">GitHub</a> | 
+     <a href="https://bocalettoluca.altervista.org">Portfolio</a></p>
+
+  <footer>
+    &copy; 2025 Luca Bocaletto · Licensed under GPL v3 · 
+    <a href="https://bocaletto-luca.github.io">Site</a> · 
+    <a href="https://github.com/bocaletto-luca">GitHub</a> · 
+    <a href="https://bocalettoluca.altervista.org">Portfolio</a>
+  </footer>
 
 </body>
 </html>
+```
