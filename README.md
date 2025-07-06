@@ -2,6 +2,8 @@
 ### Auto Backup for Linux | Python | Opensource
 #### Author: Bocaletto Luca
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge&logo=gnu)](LICENSE) [![Language: Python](https://img.shields.io/badge/Language-Python-blue?style=for-the-badge&logo=python)](https://www.python.org/) [![Linux-Compatible](https://img.shields.io/badge/Linux-Compatible-blue?style=for-the-badge&logo=linux)](https://www.kernel.org/) [![Status: Complete](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)](https://github.com/bocaletto-luca/Directory-Monitor)
+
 Interactive, single-file incremental backup tool with encryption, checksums, retention and restore—all in your terminal.
 
 backup_main.py is an interactive, single-file CLI backup utility for Linux. It captures incremental snapshots, compresses changed files into tar.gz (or pigz), encrypts them with GPG, verifies integrity via SHA256, and auto-rotates old backups. A menu-driven interface simplifies configuration and restore.
